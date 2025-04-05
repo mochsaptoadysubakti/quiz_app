@@ -51,7 +51,14 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Hero(
               tag: "logo",
-              child: Image.asset('assets/logoo.png', width: 150, height: 150),
+              child: Image.asset(
+                'assets/logoo.png',
+                width: 150,
+                height: 150,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(Icons.broken_image, size: 100, color: Colors.white);
+                },
+              ),
             ),
             const SizedBox(height: 20),
             Text(
@@ -85,7 +92,14 @@ class HomePage extends StatelessWidget {
           children: [
             Hero(
               tag: "logo",
-              child: Image.asset('assets/logoo.png', width: 150, height: 150),
+              child: Image.asset(
+                'assets/logoo.png',
+                width: 150,
+                height: 150,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(Icons.broken_image, size: 100, color: Colors.black);
+                },
+              ),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
@@ -124,7 +138,7 @@ class _QuizPageState extends State<QuizPage> {
   String? selectedAnswer;
 
   final List<Map<String, dynamic>> questions = [
-  {"question": "Program Studi D4 Manajemen Informatika Vokasi di Universitas Negeri Surabaya evolusi dari program studi apa?",
+  {"question": "Program Studi D4 Manajemen Informatika Vokasi di Universitas Negeri Surabaya berevolusi dari program studi apa?",
   "options": ["D3 Teknik Informatika", "D3 Manajemen Informatika", "D3 Rekayasa Perangkat Lunak", "D3 Sistem Informasi"],
   "answer": "D3 Manajemen Informatika"},
 
@@ -163,7 +177,7 @@ class _QuizPageState extends State<QuizPage> {
   {"question": "Apa keunggulan utama lulusan D4 Manajemen Informatika Vokasi dibandingkan program lain?",
   "options": ["Hanya fokus pada teori tanpa praktik industri", "Memiliki keterampilan teknis yang kuat serta kemampuan soft skill untuk bersaing di era digital", "Lebih banyak mempelajari ilmu sosial dibandingkan teknologi", "Hanya bekerja di bidang administrasi perkantoran"],
   "answer": "Memiliki keterampilan teknis yang kuat serta kemampuan soft skill untuk bersaing di era digital"},
-];
+  ];
 
   void checkAnswer() {
     if (selectedAnswer == questions[currentQuestionIndex]["answer"]) {
@@ -210,7 +224,7 @@ class _QuizPageState extends State<QuizPage> {
                   margin: const EdgeInsets.symmetric(vertical: 5),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFFFA500),
+                      backgroundColor: selectedAnswer == option ? Colors.green : const Color(0xFFFFA500),
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                     ),
@@ -252,11 +266,7 @@ class ResultPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "Skor Anda: $score / $total",
-              style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Color(0xFF6A0DAD)),
-            ),
-            const SizedBox(height: 20),
+            Text("Skor Anda: $score / $total", style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
             ElevatedButton(
               onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage())),
               child: const Text("Kembali ke Beranda"),
