@@ -6,7 +6,7 @@ void main() {
   runApp(const MyApp());
 }
 
-// Widget utama dari aplikasi
+// Widget utama aplikasi
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -15,16 +15,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false, // Menghilangkan banner debug
       theme: ThemeData(
-        textTheme: GoogleFonts.ralewayTextTheme(), // Menggunakan font Raleway
+        textTheme: GoogleFonts.ralewayTextTheme(), // Gunakan font Raleway
         colorScheme: ColorScheme.fromSwatch().copyWith(primary: const Color(0xFF6A0DAD)),
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: const SplashScreen(), // Halaman pertama yang muncul
+      home: const SplashScreen(), // Halaman pertama
     );
   }
 }
 
-// SplashScreen dengan timer 3 detik sebelum masuk ke HomePage
+// Splash screen sebelum masuk ke homepage
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -78,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-// Halaman utama setelah splash screen
+// Halaman utama
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -141,16 +141,11 @@ class _QuizPageState extends State<QuizPage> {
   int score = 0;
   String? selectedAnswer;
 
-  // Daftar pertanyaan kuis
+  // Daftar soal kuis
   final List<Map<String, dynamic>> questions = [
     {
       "question": "Program Studi D4 Manajemen Informatika Vokasi di Universitas Negeri Surabaya evolusi dari program studi apa?",
-      "options": [
-        "D3 Teknik Informatika",
-        "D3 Manajemen Informatika",
-        "D3 Rekayasa Perangkat Lunak",
-        "D3 Sistem Informasi"
-      ],
+      "options": ["D3 Teknik Informatika", "D3 Manajemen Informatika", "D3 Rekayasa Perangkat Lunak", "D3 Sistem Informasi"],
       "answer": "D3 Manajemen Informatika"
     },
     {
@@ -242,10 +237,9 @@ class _QuizPageState extends State<QuizPage> {
         "Hanya bekerja di bidang administrasi perkantoran"
       ],
       "answer": "Memiliki keterampilan teknis yang kuat serta kemampuan soft skill untuk bersaing di era digital"
-    }
+    },
   ];
 
-  // Mengecek jawaban dan lanjut ke soal berikutnya atau ke halaman hasil
   void checkAnswer() {
     setState(() {
       if (selectedAnswer == questions[currentQuestionIndex]["answer"]) {
@@ -265,7 +259,6 @@ class _QuizPageState extends State<QuizPage> {
     });
   }
 
-  // Kembali ke soal sebelumnya
   void goToPreviousQuestion() {
     if (currentQuestionIndex > 0) {
       setState(() {
@@ -286,15 +279,9 @@ class _QuizPageState extends State<QuizPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Soal ${currentQuestionIndex + 1}/${questions.length}",
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
+            Text("Soal ${currentQuestionIndex + 1}/${questions.length}", style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
-            Text(
-              questions[currentQuestionIndex]["question"],
-              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-            ),
+            Text(questions[currentQuestionIndex]["question"], style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
             const SizedBox(height: 20),
             Column(
               children: questions[currentQuestionIndex]["options"].map<Widget>((option) {
@@ -346,12 +333,11 @@ class ResultPage extends StatelessWidget {
 
   const ResultPage({super.key, required this.score, required this.total});
 
-  // Fungsi untuk memberikan deskripsi berdasarkan skor akhir
   String getResultDescription() {
     double percentage = (score / total) * 100;
     if (percentage >= 80) return "GG ezz 😎!";
     if (percentage >= 60) return "lumayan😉!";
-    if (percentage >= 40) return "NT😒!.";
+    if (percentage >= 40) return "NT😒!";
     return "🤣🤣🤣!";
   }
 
